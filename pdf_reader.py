@@ -1,12 +1,17 @@
 from pypdf import PdfReader
 
-reader = PdfReader("sample.pdf")
 
-with open("extracted_text.txt", "w", encoding="utf-8") as output:
+def extract_text_from_pdf(pdf_path):
 
-    for page_number, page in enumerate(reader.pages, start=1):
+    reader = PdfReader(pdf_path)
 
-        text = page.extract_text() or ""
+    with open("extracted_text.txt", "w", encoding="utf-8") as output:
 
-        output.write(f"\n--- Page {page_number} ---\n")
-        output.write(text)
+        for page_number, page in enumerate(reader.pages, start=1):
+
+            text = page.extract_text() or ""
+
+            output.write(f"\n--- Page {page_number} ---\n")
+            output.write(text)
+
+    return "PDF processed successfully"
